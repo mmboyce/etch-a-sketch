@@ -1,5 +1,5 @@
 function sketch(){
-    this.classList.toggle('sketched')
+    this.classList.add('sketched')
 }
 
 function clear(){
@@ -40,19 +40,25 @@ function checkResize(){
 
     const resize = prompt("How many squares per side should the new grid be?")
 
-    // if the prompt is cancelled, given a non number response or
-    // 0, the grid will be the default size
-    if(!resize || resize < 0){
+    if (resize === undefined){
+        // if the prompt is cancelled, we don't clear
+        return;
+    } else if (resize === null) {
+        // if nothing is entered, we do default size
+        generate(defaultSize)
+    } else if(resize <= 0 || isNaN(resize)) {
+        // if the given a negative, 0, or a non-number 
+        // the grid will be the default size
         alert("Input must be a positive integer, default size generated.")
         generate(defaultSize)
         return // exits function
     } else {
-        generate(resize);
+        generate(resize)
     }
 }
 
 const container = document.querySelector('.container')
-const defaultSize = 16;
+const defaultSize = 16
 
 generate(defaultSize)
 
