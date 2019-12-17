@@ -38,7 +38,7 @@ function generate(size) {
 function checkResize(){
     clear()
 
-    const resize = prompt("How many squares per side should the new grid be?")
+    const resize = prompt("How many squares per side should the new grid be? (Pick a number between 1-150)")
 
     if (resize === undefined){
         // if the prompt is cancelled, we don't clear
@@ -46,13 +46,13 @@ function checkResize(){
     } else if (resize === null) {
         // if nothing is entered, we do default size
         generate(defaultSize)
-    } else if(resize <= 0 || isNaN(resize)) {
+    } else if(resize <= 0 || isNaN(resize) || resize > 150) {
         // if the given a negative, 0, or a non-number 
         // the grid will be the default size
-        alert("Input must be a positive integer, default size generated.")
+        alert("Input must be a positive integer under 150, default size generated.")
         generate(defaultSize)
         return // exits function
-    } else {
+    } else  if(resize <= 250){
         generate(resize)
     }
 }
