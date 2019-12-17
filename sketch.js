@@ -11,54 +11,52 @@ function clear(){
 }
 
 function generate(size) {
-    const rows = document.querySelectorAll('.row')
+    const squares = document.querySelectorAll('.square')
 
-    if(rows.length > 0){
-        for(let i = 0; i < rows.length; i++){
-            container.removeChild(rows[i])
+    if(squares.length > 0){
+        for(let i = 0; i < squares.length; i++){
+            grid.removeChild(squares[i])
         }
     }
 
-    for(let i = 0; i < size; i++){
-        const row = document.createElement('div')
-    
-        for( let j = 0; j < size; j++){
+    for( let i = 0; i < (size * size); i++){
             const square = document.createElement('div')
             square.classList.add('square')
-            row.appendChild(square)
             square.addEventListener('mouseenter', sketch)
-        }
-        
-        row.classList.add('row')
-        
-        container.appendChild(row)
+            grid.appendChild(square)
     }
 }
 
 function checkResize(){
-    clear()
-
     const resize = prompt("How many squares per side should the new grid be? (Pick a number between 1-150)")
-
-    if (resize === undefined){
+    
+    if (resize === null){
         // if the prompt is cancelled, we don't clear
         return;
-    } else if (resize === null) {
-        // if nothing is entered, we do default size
-        generate(defaultSize)
+    } 
+   
+    clear()
+
+    if (resize === "") {
+        // if nothing is entered, we reset to the currentSize size
+
     } else if(resize <= 0 || isNaN(resize) || resize > 150) {
         // if the given a negative, 0, or a non-number 
         // the grid will be the default size
         alert("Input must be a positive integer under 150, default size generated.")
-        generate(defaultSize)
+        currentSize = defaultSize
         return // exits function
     } else  if(resize <= 250){
-        generate(resize)
+        currentSize = resize
     }
+    grid.style.gridTemplateColumns = `repeat(${currentSize}, 3vh)`
+    grid.style.gridTemplateRows = `repeat(${currentSize}, 3vw)`
+    generate(currentSize)
 }
 
-const container = document.querySelector('.container')
+const grid = document.querySelector('.grid')
 const defaultSize = 16
+let currentSize = defaultSize;
 
 generate(defaultSize)
 

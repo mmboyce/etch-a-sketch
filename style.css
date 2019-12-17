@@ -16,11 +16,19 @@ button:hover {
     color: black;
 }
 
-.container {
-    display: flex;
-    justify-content: space-around;
+.grid {
+    display: grid;
     background: #E3E8E4;
     border: 2em solid #ef0f10;
+    grid-template-rows: repeat(16, 3vw);
+    grid-template-columns: repeat(16, 3vh);
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row-reverse;
 }
 
 h1 {
@@ -30,9 +38,9 @@ h1 {
 
 .square {
     background: #E3E8E4;
-    width: 2em;
-    height: 2em;
-    margin: 0.25em 0.25em 0 0;
+    width: 3vw;
+    height: 3vh;
+    border: 1px dashed #25352850;
 }
 
 .sketched {
