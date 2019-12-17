@@ -23,13 +23,22 @@ function generate(size) {
             const square = document.createElement('div')
             square.classList.add('square')
             square.addEventListener('mouseenter', sketch)
+            square.style.width = squareDimension
+            square.style.height = squareDimension
             grid.appendChild(square)
     }
 }
 
+function calcSquareDimension(size){
+    const borderSize = 2 // border size is 1px, add 1 to each side adds 2 to height and width
+    const gridSize = 500
+
+    return ((gridSize + borderSize) / size) + "px"
+}
+
 function checkResize(){
-    const resize = prompt("How many squares per side should the new grid be? (Pick a number between 1-150)")
-    
+    const resize = prompt("How many squares per axis should the new grid be? (Pick a number between 1-150)")
+
     if (resize === null){
         // if the prompt is cancelled, we don't clear
         return;
@@ -45,20 +54,21 @@ function checkResize(){
         // the grid will be the default size
         alert("Input must be a positive integer under 150, default size generated.")
         currentSize = defaultSize
-        return // exits function
     } else  if(resize <= 250){
         currentSize = resize
     }
-    grid.style.gridTemplateColumns = `repeat(${currentSize}, 3vh)`
-    grid.style.gridTemplateRows = `repeat(${currentSize}, 3vw)`
+    squareDimension = calcSquareDimension(currentSize)
+    grid.style.gridTemplateColumns = `repeat(${currentSize}, ${squareDimension})`
+    grid.style.gridTemplateRows = `repeat(${currentSize}, ${squareDimension})`
     generate(currentSize)
 }
 
 const grid = document.querySelector('.grid')
-const defaultSize = 16
+const defaultSize = 16;
 let currentSize = defaultSize;
+let squareDimension = calcSquareDimension(currentSize)
 
-generate(defaultSize)
+generate(currentSize)
 
 const clearButton = document.querySelector('button')
 

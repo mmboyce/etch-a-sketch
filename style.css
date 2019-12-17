@@ -20,8 +20,11 @@ button:hover {
     display: grid;
     background: #E3E8E4;
     border: 2em solid #ef0f10;
-    grid-template-rows: repeat(16, 3vw);
-    grid-template-columns: repeat(16, 3vh);
+    /* TODO: fix hardcoded size */
+    grid-template-rows: repeat(16, 31.375px); 
+    grid-template-columns: repeat(16, 31.375px);
+    width: 500px;
+    height: 500px;
 }
 
 .container {
@@ -38,8 +41,6 @@ h1 {
 
 .square {
     background: #E3E8E4;
-    width: 3vw;
-    height: 3vh;
     border: 1px dashed #25352850;
 }
 
