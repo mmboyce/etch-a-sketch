@@ -12,6 +12,7 @@ function clear(){
 
 function generate(size) {
     const squares = document.querySelectorAll('.square')
+    updateGridRowsAndColumns()
 
     if(squares.length > 0){
         for(let i = 0; i < squares.length; i++){
@@ -36,6 +37,12 @@ function calcSquareDimension(size){
     return ((gridSize + borderSize) / size) + "px"
 }
 
+function updateGridRowsAndColumns(){
+    grid.style.gridTemplateColumns = `repeat(${currentSize}, ${squareDimension})`
+    grid.style.gridTemplateRows = `repeat(${currentSize}, ${squareDimension})`
+
+}
+
 function checkResize(){
     const resize = prompt("How many squares per axis should the new grid be? (Pick a number between 1-150)")
 
@@ -58,8 +65,6 @@ function checkResize(){
         currentSize = resize
     }
     squareDimension = calcSquareDimension(currentSize)
-    grid.style.gridTemplateColumns = `repeat(${currentSize}, ${squareDimension})`
-    grid.style.gridTemplateRows = `repeat(${currentSize}, ${squareDimension})`
     generate(currentSize)
 }
 
